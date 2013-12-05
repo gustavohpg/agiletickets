@@ -105,19 +105,25 @@ public class Espetaculo {
 			return lista;
 		}
 		
-		if(Periodicidade.DIARIA.equals(periodicidade)){
+		if(Periodicidade.DIARIA.equals(periodicidade)) {
 			int diferencaDeDias = Days.daysBetween(inicio, fim).getDays();
-			for(int i=0;i<diferencaDeDias+1;i++){
+			if(diferencaDeDias==0){
+				diferencaDeDias = diferencaDeDias+1;
+			}
+			for(int i=0;i<diferencaDeDias;i++){
 				Sessao sessao = new Sessao();
 				sessao.setInicio(inicio.plusDays(i).toDateTime(horario));
+				sessao.setEspetaculo(this);
 				lista.add(sessao);
 			}
 		}
+		
 		if(Periodicidade.SEMANAL.equals(periodicidade)){
 			int diferencaDeSemanas = Weeks.weeksBetween(inicio, fim).getWeeks();
 			for(int i=0;i<diferencaDeSemanas;i++){
 				Sessao sessao = new Sessao();
 				sessao.setInicio(inicio.plusWeeks(i).toDateTime(horario));
+				sessao.setEspetaculo(this);
 				lista.add(sessao);
 			}
 		}
